@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Serpent</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+ <body>
+       <h1> JavaScript Snake</h1>
+       
+
+        <canvas id="canvas" width="600" height="600"></canvas>
+        
+        <script>
+            var canvas, nsk;
+            var Death = 0;
+            var Points = 0;
+  
+
+
+            window.onload = function () {
+                canvas = document.getElementById("canvas");
+                nsk = canvas.getContext("2d");
+
+                document.addEventListener("keydown", keyDownEvent);
+
+             
+                var x = 8;
+                setInterval(draw, 1000 / x);
+            };
+
+            var gridSize = (tileSize = 20); 
+            var nextX = (nextY = 0);
+
+          
+            var defaultTailSize = 3;
+            var tailSize = defaultTailSize;
+            var snakeTrail = [];
+            var snakeX = (snakeY = 10);
+
+        
+            var appleX = (appleY = 15);
+
+            
+            function draw() {
+          
+                snakeX += nextX;
+                snakeY += nextY;
+                if (snakeX < 0) {
+                    snakeX = gridSize - 1;
+                }
+                if (snakeX > gridSize - 1) {
+                    snakeX = 0;
+                }
+
+                if (snakeY < 0) {
+                    snakeY = gridSize - 1;
+                }
+                if (snakeY > gridSize - 1) {
+                    snakeY = 0;
+                }
+
+                
+                if (snakeX == appleX && snakeY == appleY) {
+             
+                    tailSize++;
+         
+
+                    appleX = Math.floor(Math.random() * gridSize);
+                    appleY = Math.floor(Math.random() * gridSize);
+                 
+
+                }
+                 nsk.fillStyle = "black";
+                 nsk.fillRect(0, 0, canvas.width, canvas.height);
+
+
+                 nsk.fillStyle ="green";
+                 for (var i =0; i < snakeTrail.length; i++){
+                    nsk.fillRect(
+                        snakeTrail[i].x * tileSize,
+                        snakeTrail[i].y * tileSize,
+                        tileSize,
+                        tileSize
+                    );
+
+                    if (snakeTrail[i].x == snakeX && snakeTrail[i].y == snakeY){
+
+                        tailSize = defaultTailSize;
+                        
+                    }
+
+                 }
+
+                 nsk.fillStyle = "red";
+                 nsk.fillRect(appleX * tileSize, appleY * tileSize , tileSize, tileSize);
+
+                 snakeTrail.push({x: snakeX, y: snakeY});
+                 while(snakeTrail.length > tailSize){
+                     snakeTrail.shift();
+                 }
+                
+                
+            }
+
+
+            function keyDownEvent(e){
+                switch (e.keyCode) {
+
+                    case 37:
+                        nextX = -1;
+                        nextY = 0;
+                        break;
+                    case 38:
+                        nextX = 0;
+                        nextY = -1;
+                        break;
+                    case 39:
+                        nextX = 1;
+                        nextY = 0;
+                        break;
+                    case 40:
+                        nextX = 0;
+                        nextY = 1;
+                        break;
+                }
+             
+                var Length = this.snakeTrail.length;
+                
+                   function SetScore(Points)
+                   {
+                    Points = this.Length;
+                    points = this.document.getElementById("Lives");
+
+
+                   }
+            }
+       </script>
+ </body>
+ <p id = "Loss"> Deaths:  <script src = "score.js"></script></p>
+ <p id = "Lives" > Lives:  <script src = "score.js"></script></p>
+
+<table id = "Complex-table" border="4px" cellspacing ="6">
+    <thead>
+        <tr>
+      
+            <th scope="User"> MAX_ SCORE</th>
+            <th scope ="column"> TOTAL Deaths<Link></Link></th>
+      
+        </tr>
+    </thead>
+    <tbody>
+</html>
